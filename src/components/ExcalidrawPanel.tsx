@@ -19,15 +19,20 @@ export default function ExcalidrawPanel({ pdfPath, onClose }: Props) {
 
   useEffect(() => {
     readFile(canvasPath)
-      .then((b) => setInitialData(JSON.parse(new TextDecoder().decode(b))))
-      .catch(() => setInitialData({ elements: [], appState: { theme: "dark" } }));
+      .then((b) => {
+        const data = JSON.parse(new TextDecoder().decode(b));
+        if (data.appState) data.appState.collaborators = new Map();
+        setInitialData(data);
+      })
+      .catch(() => setInitialData({ elements: [], appState: { theme: "dark", collaborators: new Map() } }));
   }, [canvasPath]);
 
   const handleChange = useCallback(
     (elements: any, appState: any, files: any) => {
       if (saveTimer.current) clearTimeout(saveTimer.current);
       saveTimer.current = setTimeout(async () => {
-        const json = JSON.stringify({ elements, appState, files });
+        const { collaborators: _c, ...safeAppState } = appState;
+        const json = JSON.stringify({ elements, appState: safeAppState, files });
         await writeFile(canvasPath, new TextEncoder().encode(json));
       }, 1000);
     },
