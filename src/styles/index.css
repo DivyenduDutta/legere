@@ -1,0 +1,142 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body, #root, .app {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #13111c;
+  color: #e2e2e2;
+  font-family: system-ui, sans-serif;
+}
+
+/* ── Toolbar ─────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background: #1c1a2b;
+  border-bottom: 1px solid #2a2740;
+  flex-shrink: 0;
+}
+
+.toolbar-btn {
+  padding: 4px 10px;
+  background: #2a2740;
+  color: #ccc;
+  border: 1px solid #3a3560;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+.toolbar-btn:hover { background: #3a3560; color: #fff; }
+.toolbar-btn.active { background: #6c5ce7; border-color: #6c5ce7; color: #fff; }
+
+.sep { width: 1px; height: 22px; background: #2a2740; margin: 0 3px; }
+
+.page-info { margin-left: auto; font-size: 12px; color: #888; }
+
+/* ── Main ────────────────────────────────────────── */
+.main { flex: 1; overflow: hidden; display: flex; }
+
+.pdf-viewer {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 20px;
+}
+
+/* ── PDF page ────────────────────────────────────── */
+.pdf-page-wrapper {
+  position: relative;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.6);
+  border-radius: 3px;
+  line-height: 0;
+}
+
+.pdf-page-wrapper canvas { display: block; }
+
+.text-layer {
+  position: absolute;
+  top: 0; left: 0;
+  overflow: hidden;
+  line-height: 1;
+}
+
+.text-layer span {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.text-layer ::selection { background: rgba(108, 92, 231, 0.35); }
+
+/* ── Empty state ─────────────────────────────────── */
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #555;
+}
+
+.empty-logo {
+  font-size: 80px;
+  font-weight: 700;
+  color: #6c5ce7;
+}
+
+.empty-state p { font-size: 22px; letter-spacing: 4px; color: #888; }
+
+.empty-state button {
+  padding: 10px 28px;
+  background: #6c5ce7;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+.empty-state button:hover { background: #7d6ff0; }
+
+/* ── Excalidraw overlay ──────────────────────────── */
+.excalidraw-overlay {
+  position: fixed;
+  inset: 0;
+  background: #13111c;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+
+.excalidraw-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: #1c1a2b;
+  border-bottom: 1px solid #2a2740;
+  font-size: 13px;
+  color: #aaa;
+  flex-shrink: 0;
+}
+
+.excalidraw-header button {
+  background: #6c5ce7;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.excalidraw-body { flex: 1; }
