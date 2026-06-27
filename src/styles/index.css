@@ -139,4 +139,4 @@ body, #root, .app {
   cursor: pointer;
 }
 
-.excalidraw-body { flex: 1; }
+.excalidraw-body { flex: 1; height: 0; }
